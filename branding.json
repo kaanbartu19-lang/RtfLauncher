@@ -1,0 +1,13 @@
+{
+  "serverName": "RtfSMP",
+  "serverIp": "oyna.rtfsmp.net",
+  "serverPort": 25565,
+  "version": "1.21.11",
+  "fabricVersion": "0.18.4",
+  "apiUrl": "https://rtfsmp-server.onrender.com",
+  "discordUrl": "https://discord.gg/rtfsmp",
+  "youtubeUrl": "https://www.youtube.com/@rtfsmp",
+  "description": "Hayatta kal. Keşfet. Eğlen.",
+  "adminAccounts": ["cordezxM"],
+  "news": []
+}

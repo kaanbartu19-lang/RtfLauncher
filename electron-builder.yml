@@ -1,0 +1,36 @@
+appId: com.rtfsmp.launcher
+productName: RtfLauncher
+artifactName: RtfLauncher Setup ${version}.${ext}
+
+files:
+  - src/**
+  - electron/**
+  - renderer/dist/**
+  - assets/icon.ico
+  - branding.json
+
+asarUnpack:
+  - src/resources/**
+
+win:
+  target:
+    - nsis
+  icon: assets/icon.ico
+  requestedExecutionLevel: asInvoker
+
+nsis:
+  oneClick: false
+  perMachine: false
+  allowToChangeInstallationDirectory: true
+  createDesktopShortcut: false
+  createStartMenuShortcut: true
+  shortcutName: RtfLauncher
+  uninstallDisplayName: RtfLauncher
+  deleteAppDataOnUninstall: false
+
+publish:
+  provider: github
+  owner: kaanbartu19-lang
+  repo: RtfLauncher
+  releaseType: release
+  vPrefixedTagName: true

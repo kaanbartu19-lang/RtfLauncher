@@ -1,0 +1,65 @@
+name: RtfLauncher Release
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Validate tag and package version
+        shell: bash
+        run: node scripts/validate-release-version.js "$GITHUB_REF_NAME"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install renderer dependencies
+        run: npm ci --prefix renderer
+
+      - name: Static QA
+        run: npm run qa
+
+      - name: Build renderer and Windows installer
+        run: npm run dist:win
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Validate release artifacts
+        run: node scripts/validate-artifacts.js
+
+      - name: Publish validated artifacts to GitHub Release
+        run: npm run publish:win
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Verify GitHub release assets (what electron-updater needs)
+        shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG: ${{ github.ref_name }}
+        run: |
+          gh release view "$TAG" --repo "kaanbartu19-lang/RtfLauncher"
+          assets="$(gh release view "$TAG" --repo "kaanbartu19-lang/RtfLauncher" --json assets --jq '.assets[].name')"
+          echo "$assets"
+          version="${TAG#v}"
+          for required in "latest.yml" "RtfLauncher-Setup-${version}.exe" "RtfLauncher-Setup-${version}.exe.blockmap"; do
+            echo "$assets" | grep -qxF "$required" || { echo "::error::Release is missing asset: $required (auto-update would fail)"; exit 1; }
+          done
+          echo "All updater assets present."

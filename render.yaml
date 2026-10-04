@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: rtfsmp-server
+    runtime: node
+    rootDir: server
+    buildCommand: npm install
+    startCommand: npm start
+    plan: free
+    healthCheckPath: /health
+    envVars:
+      - key: ADMIN_USERNAME
+        value: cordezxM
+      - key: ADMIN_PASSWORD
+        sync: false
+      - key: JWT_SECRET
+        generateValue: true

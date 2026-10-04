@@ -1,0 +1,33 @@
+node_modules/
+renderer/node_modules/
+renderer/dist/
+dist/
+release/
+*.log
+.env
+.env.*
+!.env.example
+credentials/
+secrets/
+*.pem
+*.key
+*.p12
+*.pfx
+.DS_Store
+Thumbs.db
+
+# Local API server data (user accounts, password hashes, balances — never commit)
+server/data.json
+server/data.json.tmp
+
+# Local launcher/user data
+.rtf-launcher-v2/
+.minecraft/
+
+# Local editor/OS files
+.vscode/
+.idea/
+
+# Temporary reports/build diagnostics
+*.tmp
+*.bak

@@ -1,0 +1,6 @@
+name: RtfTabMarker
+version: 1.0.0
+main: com.rtfsmp.rtftab.RtfTabMarkerPlugin
+api-version: '1.21'
+author: RtfSMP
+description: Adds a small RtfLauncher marker to players using RtfLauncher.

@@ -1,0 +1,30 @@
+{
+  "name": "rtflauncher-v2",
+  "version": "8.0.0",
+  "description": "Minecraft launcher for RtfSMP",
+  "main": "src/main.js",
+  "scripts": {
+    "dev": "concurrently \"npm run dev --prefix renderer\" \"wait-on http://localhost:5173 && electron .\"",
+    "build": "npm run build --prefix renderer",
+    "start": "electron .",
+    "qa": "node scripts/qa-static.js",
+    "qa:network": "node scripts/qa-static.js --network",
+    "package": "npm run build",
+    "dist": "npm run build && electron-builder --publish never",
+    "dist:win": "npm run build && electron-builder --win nsis --publish never",
+    "release": "npm run dist:win && node scripts/validate-artifacts.js && npm run publish:win",
+    "qa:release": "npm run qa && npm run dist:win",
+    "publish:win": "electron-builder --win nsis --publish always"
+  },
+  "devDependencies": {
+    "concurrently": "^8.0.0",
+    "electron": "^28.0.0",
+    "electron-builder": "^24.0.0",
+    "wait-on": "^7.0.0"
+  },
+  "dependencies": {
+    "adm-zip": "^0.5.16",
+    "minecraft-launcher-core": "^3.6.6",
+    "electron-updater": "^6.0.0"
+  }
+}

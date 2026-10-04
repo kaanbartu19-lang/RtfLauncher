@@ -1,0 +1,8 @@
+/* The host defines the size; the canvas fills it via absolute positioning and
+   skinview3d's setSize(). No width/height overrides on the canvas itself. */
+.character-preview-v2 { position: relative; width: 100%; height: 100%; min-height: 260px; overflow: hidden; }
+.character-preview-v2 > canvas { position: absolute; left: 0; top: 0; display: block; touch-action: none; cursor: grab; }
+.character-preview-v2 > canvas:active { cursor: grabbing; }
+.character-preview-msg { position: absolute; inset: auto 12px 12px; padding: 8px 12px; border-radius: 10px; background: rgba(239, 68, 68, .12); color: #ef4444; font-size: 12.5px; font-weight: 600; text-align: center; }
+.character-preview-msg.small { inset: 12px 12px auto; }
+.wardrobe-stage { position: relative; height: 400px; margin: 8px 0; }
